@@ -1,0 +1,28 @@
+from PIL import Image
+import svgwrite
+import math
+
+def convert_png_to_svg(png_file, output_svg_file):
+    # Load PNG image
+    img = Image.open(png_file)
+    width, height = img.size
+    
+    # Resize the image
+    new_width = 400  # Adjust this as needed
+    scale_factor = new_width / width
+    new_height = math.floor(height * scale_factor)
+    img = img.resize((new_width, new_height), Image.ANTIALIAS)
+    
+    # Convert to SVG
+    dwg = svgwrite.Drawing(output_svg_file, profile='tiny', size=(new_width, new_height))
+    for y in range(new_height):
+        for x in range(new_width):
+            r, g, b = img.getpixel((x, y))
+            dwg.add(dwg.rect(insert=(x, y), size=(1, 1), fill=svgwrite.rgb(r, g, b, mode='RGB')))
+    
+    dwg.save()
+
+# Run the converter
+input_png = "input.png"
+output_svg = "output_compressed.svg"
+convert_png_to_svg(input_png, output_svg)
