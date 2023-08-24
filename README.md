@@ -17,6 +17,7 @@ tips appreciated Gooseverse.eth
 1. Clone the repository:
    
 git clone https://github.com/yourusername/png-to-svg-converter.git
+
 cd png-to-svg-converter
 
 2. Install the required dependencies:
